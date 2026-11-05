@@ -1,0 +1,45 @@
+[package]
+name = "axum-playground"
+version = "0.1.0"
+edition = "2021"
+description = "Playground belajar Axum + SeaORM + PostgreSQL: Auth JWT, RBAC sederhana, manajemen akun, profil, dan stok."
+
+[workspace]
+members = ["migration"]
+
+[dependencies]
+# Web framework
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+tower-http = { version = "0.7", features = ["cors", "trace"] }
+
+# Database / ORM
+sea-orm = { version = "2.0", features = [
+    "sqlx-postgres",
+    "runtime-tokio-rustls",
+    "macros",
+    "with-chrono",
+    "with-rust_decimal",
+] }
+migration = { path = "migration" }
+
+# Auth
+# rust_crypto = backend crypto murni Rust (wajib dipilih di jsonwebtoken 11)
+jsonwebtoken = { version = "11", features = ["rust_crypto"] }
+argon2 = "0.6"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Utilities
+chrono = { version = "0.4", features = ["serde"] }
+rust_decimal = { version = "1", features = ["serde"] }
+dotenvy = "0.15"
+anyhow = "1"
+thiserror = "2"
+validator = { version = "0.21", features = ["derive"] }
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
